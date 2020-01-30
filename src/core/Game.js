@@ -12,6 +12,11 @@ class Game{
     add(gameObject){
         this.gameObjectList.add(gameObject);
     }
+    addAll(gameObjects){
+        for(let gameObject of gameObjects){
+            this.gameObjectList.add(gameObject);
+        }
+    }
     remove(gameObject){
         this.gameObjectList.remove(gameObject);
     }

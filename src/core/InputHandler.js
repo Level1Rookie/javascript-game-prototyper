@@ -1,12 +1,14 @@
 class InputHandler{
-    constructor(document){
-    }
-    register(controllable,eventType, keycode, action){
+
+    register(eventType, keycode, action){
         document.addEventListener(eventType, function(event){
             if(event.code == keycode){
-                action(controllable);
+                action();
             }
         });
+    }
+    subscribe(controllable){
+        controllable.bind(this.register);
     }
 }
 

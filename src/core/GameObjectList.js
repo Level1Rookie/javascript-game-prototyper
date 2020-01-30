@@ -11,8 +11,8 @@ class GameObjectList{
         this.children.push(gameObject);
         this.isChanged = true;
     }
-    remove(gameObject){
-        let index = this.children.findIndex(gameObj => gameObj.id == gameObject.id);
+    remove(gameObjectToRemove){
+        let index = this.children.findIndex(gameObj => gameObj.id == gameObjectToRemove.id);
         this.idPool.delete(this.children[index].id);
         this.children.splice(index, 1);
         this.isChanged = true;

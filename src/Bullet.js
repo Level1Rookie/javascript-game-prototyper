@@ -1,9 +1,9 @@
-import Vector from './Vector';
-import Rectangle from './Rectangle';
+import Vector from './core/Vector';
+import Rectangle from './core/Rectangle';
 
 class Bullet extends Rectangle{
     constructor(positionX, positionY){
-        super(positionX, positionY, 5, 5, 'yellow', 'bullet');
+        super(positionX, positionY, 5, 5, 'red', 'bullet');
         this.velocity = new Vector(0, 0);
         this.owner = null;
         this.initTime = null;
@@ -16,7 +16,7 @@ class Bullet extends Rectangle{
         this.owner = gameObject;
     }
     update(timestamp){
-        let seconds = (timestamp/1000).toFixed(2)
+        let seconds = (timestamp/2000).toFixed(2)
         this.position.add(this.velocity);
         if(this.initTime == null){
             this.initTime = seconds;
