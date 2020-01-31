@@ -1,4 +1,5 @@
 import Rectangle from './Rectangle';
+
 class Pair{
     constructor(gameObject1, gameObject2){
         this.gameObject1 = gameObject1;
@@ -28,8 +29,9 @@ class Pair{
 }
 
 class OverlapDetector{
-    constructor(gameObjectList){
+    constructor(gameObjectList, overlapConfig){
         this.gameObjectList = gameObjectList;
+        this.overlapConfig = this._parseOverlapConfig(overlapConfig);
     }
 
     checkOverlap(){
@@ -44,34 +46,17 @@ class OverlapDetector{
         }
     }
 
+    _parseOverlapConfig(overlapConfig){
+        return overlapConfig;
+    }
+
     _resolveOverlap(gameObject1, gameObject2){
         let pair = new Pair(gameObject1, gameObject2);
-        if(pair.matchTag('player','tagger')){
-            this.gameObjectList.remove(pair.findObjectWithTag('player'));
-        }
-        else if(pair.matchTag('background', 'player')){
 
-        }
-        else if(pair.matchTag('background','obstacle')){
-
-        }
-        else if(pair.matchTag('player','bullet')){
-            this.gameObjectList.remove(pair.findObjectWithTag('player'));
-            this.gameObjectList.remove(pair.findObjectWithTag('bullet'));
-        }
-        else if(pair.matchTag('player','pickup')){
-            let pickup = pair.findObjectWithTag('pickup');
-            this.gameObjectList.findObjectWithTag('pickupManager').destroyPickup(pickup);
-            pair.findObjectWithTag('player').setState('tagger');
-        }
-        else if(pair.matchTag('player','obstacle') || pair.matchTag('tagger','obstacle')){
-            gameObject1.position.x = gameObject1.lastPosition.x;
-            gameObject1.position.y = gameObject1.lastPosition.y;
-            gameObject2.position.x = gameObject2.lastPosition.x;
-            gameObject2.position.y = gameObject2.lastPosition.y;
-
-        }else if(pair.matchTag('bullet','obstacle')){
-            this.gameObjectList.remove(pair.findObjectWithTag('bullet'));
+        for(let config of this.overlapConfig){
+            if(pair.matchTag(config.tag1,config.tag2)){
+                config.action(pair.findObjectWithTag(config.tag1),pair.findObjectWithTag(config.tag2), this.gameObjectList);
+            }
         }
     }
     _isOverlap(gameObject1, gameObject2){

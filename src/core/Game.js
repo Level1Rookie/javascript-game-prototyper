@@ -3,11 +3,10 @@ import Renderer from './Renderer';
 import OverlapDetector from './OverlapDetector';
 
 class Game{
-    constructor(document, renderConfig){
+    constructor(renderConfig, overlapConfig){
         this.gameObjectList = new GameObjectList();
-        this.document = document;
         this.renderer = new Renderer(document.getElementById('canvas').getContext('2d'), this.gameObjectList, renderConfig);
-        this.overlapDetector = new OverlapDetector(this.gameObjectList);
+        this.overlapDetector = new OverlapDetector(this.gameObjectList, overlapConfig);
     }
     add(gameObject){
         this.gameObjectList.add(gameObject);

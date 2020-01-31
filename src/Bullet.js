@@ -3,10 +3,11 @@ import Rectangle from './core/Rectangle';
 
 class Bullet extends Rectangle{
     constructor(positionX, positionY){
-        super(positionX, positionY, 5, 5, 'red', 'bullet');
+        super(positionX, positionY, 5, 5, 'green', 'bullet');
         this.velocity = new Vector(0, 0);
         this.owner = null;
         this.initTime = null;
+        this.speed = 3;
     }
     setVelocity(x,y){
         this.velocity.x = x;

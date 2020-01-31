@@ -4,6 +4,11 @@ class GameObjectList{
         this.children = []
         this.idPool = new Set();
     }
+    
+    get length(){
+        return this.children.length;
+    }
+
     add(gameObject){
         let id = this._generateId();
         gameObject._setId(id);
@@ -17,19 +22,16 @@ class GameObjectList{
         this.children.splice(index, 1);
         this.isChanged = true;
     }
-    get length(){
-        return this.children.length;
-    }
     findObjectWithIndex(index){
         return this.children[index];
     }
     findObjectWithTag(tag){
         let index = this.children.findIndex(gameObj => gameObj.tag == tag);
-        return this.children[index];
+        return index == -1 ? null : this.children[index];
     }
     findObjectWithId(id){
         let index = this.children.findIndex(gameObj => gameObj.id == id);
-        return this.children[index];
+        return index == -1 ? null : this.children[index];
     }
 
     //javascript is unable to console.log object realtime 
@@ -44,6 +46,7 @@ class GameObjectList{
     }
 
     _generateId(){
+        // To be improved 
         let id = Math.floor(Math.random()*90000) + 10000;
         while(this.idPool.has(id)){
             id = Math.floor(Math.random()*90000) + 10000;
