@@ -1,5 +1,6 @@
 import GameObject from '../core/GameObject';
 import Rectangle from '../core/Rectangle';
+import Timer from '../core/Timer';
 
 // ------Tagger pickups-------
 //BlackHole pickup
@@ -10,48 +11,44 @@ import Rectangle from '../core/Rectangle';
 
 
 class BasicPickup extends Rectangle{
-    constructor(positionX, positionY, spawnTime){
+    constructor(positionX, positionY){
         super(positionX, positionY, 5, 5, 'orange', 'pickup');
         this.type = "basic";
-        this.spawnTime = spawnTime;
     }
 }
 
 class ShootPickup extends Rectangle{
-    constructor(positionX, positionY, spawnTime){
+    constructor(positionX, positionY){
         super(positionX, positionY, 5, 5, 'red', 'pickup');
         this.type = "shoot";
-        this.spawnTime = spawnTime;
     }
 }
 
 class BlackHolePickup extends Rectangle{
-    constructor(positionX, positionY, spawnTime){
+    constructor(positionX, positionY){
         super(positionX, positionY, 5, 5, 'black', 'pickup');
         this.type = "black-hole";
-        this.spawnTime = spawnTime;
     }
 }
 
 class PickupManager extends GameObject{
     constructor(){
         super('pickupManager');
-        this.existDuration = 3000;
-        this.spawnTimeDuration = 5000;
-        this.lastSpawnTime = null;
+
+        this.pickupExistTimer = new Timer(3000);
+        this.spawnTimer = new Timer(5000);
         this.pickupList = [];
     }
     update(timestamp){
         super.update();
-        if(this.lastSpawnTime == null){
-            this.lastSpawnTime = timestamp;
-        }
-        if(timestamp - this.lastSpawnTime > this.spawnTimeDuration){
+        if(this.spawnTimer.timeUp()){
             this.spawnPickup(timestamp);
+            this.spawnTimer.reset();
         }
         for(let pickup of this.pickupList){
-            if(timestamp - pickup.spawnTime > this.existDuration){
+            if(this.pickupExistTimer.timeUp()){
                 this.destroy(pickup);
+                this.pickupExistTimer.reset();
             }
         }
     }

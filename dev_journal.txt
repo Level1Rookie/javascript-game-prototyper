@@ -1,0 +1,9 @@
+2020/2/14 [Problem 1] 
+    encountered a problem when an enemyManager needs to 
+    have a timer children, if there is no children 
+    allowed for gameObjects, the gameObject must be directly 
+    added to the main gameObjectList, which does not exist before 
+    it is added to game.
+
+
+

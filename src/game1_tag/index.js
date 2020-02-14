@@ -4,6 +4,7 @@ import InputHandler from '../core/InputHandler';
 import Rectangle from '../core/Rectangle';
 import Player from './Player';
 import PickupManager from './PickupManager';
+import Timer from '../core/Timer';
 import Vector from '../core/Vector';
 
 let renderConfig = {
