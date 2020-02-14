@@ -39,7 +39,7 @@ class InputHandler{
                 'clientX': event.clientX,
                 'clientY': event.clientY
             });
-            console.log(`[${event.clientX}, ${event.clientY}]`);
+            //console.log(`[${event.clientX}, ${event.clientY}]`);
         })
         document.addEventListener('mouseup', (event) => {
             this.em.emit('mouseup',{
@@ -47,7 +47,7 @@ class InputHandler{
                 'clientX': event.clientX,
                 'clientY': event.clientY
             });
-            console.log(`[${event.clientX}, ${event.clientY}]`);
+            //console.log(`[${event.clientX}, ${event.clientY}]`);
         })
     }
 

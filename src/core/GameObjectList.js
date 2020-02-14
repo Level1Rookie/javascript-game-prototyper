@@ -1,26 +1,23 @@
-class GameObjectList{
-    constructor(){
+
+class GameObjectList extends Array{
+    constructor( ...args){
+        super( ...args);
         this.isChanged = false;
-        this.children = []
         this.idPool = new Set();
-    }
-    
-    get length(){
-        return this.children.length;
     }
 
     add(gameObject){
         let id = this._generateId();
         gameObject._setId(id);
         gameObject.setParent(this);
-        this.children.push(gameObject);
         this.isChanged = true;
+        return super.push(gameObject);
     }
     remove(gameObjectToRemove){
         let index = this.children.findIndex(gameObj => gameObj.id == gameObjectToRemove.id);
         this.idPool.delete(this.children[index].id);
-        this.children.splice(index, 1);
         this.isChanged = true;
+        return super.splice(index, 1);
     }
     findObjectWithIndex(index){
         return this.children[index];

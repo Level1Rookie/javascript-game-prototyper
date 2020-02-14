@@ -55,7 +55,6 @@ class Player extends DynamicRectangle{
                 this.setVelocityX(0);
             }
         }
-        console.log(event);
     }
     moveUp(){
         this.velocity.y = -this.speed;

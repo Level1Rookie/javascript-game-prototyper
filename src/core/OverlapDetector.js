@@ -35,10 +35,10 @@ class OverlapDetector{
     }
 
     checkOverlap(){
-        for(let i=0; i<this.gameObjectList.children.length; i++){
-            for(let j=i+1; j<this.gameObjectList.children.length; j++){
-                let gameObject1 = this.gameObjectList.children[i];
-                let gameObject2 = this.gameObjectList.children[j];
+        for(let i=0; i<this.gameObjectList.length; i++){
+            for(let j=i+1; j<this.gameObjectList.length; j++){
+                let gameObject1 = this.gameObjectList[i];
+                let gameObject2 = this.gameObjectList[j];
                 if(this._isOverlap(gameObject1, gameObject2)){
                     this._resolveOverlap(gameObject1, gameObject2);
                 }

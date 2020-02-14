@@ -20,7 +20,7 @@ class Game{
         this.gameObjectList.remove(gameObject);
     }
     update(timestamp){
-        for(let gameObject of this.gameObjectList.children){
+        for(let gameObject of this.gameObjectList){
             gameObject.update(timestamp);
         }
         this.overlapDetector.checkOverlap();

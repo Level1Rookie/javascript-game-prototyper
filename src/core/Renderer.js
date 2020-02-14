@@ -9,7 +9,7 @@ class Renderer{
     refreshRenderList(){
         this.renderList = [];
         for(let layer in this.renderConfig){
-            for(let gameObject of this.gameObjectList.children){
+            for(let gameObject of this.gameObjectList){
                 if(this.renderConfig[layer].includes(gameObject.tag)){
                     this.renderList.push(gameObject);
                 }
