@@ -1,17 +1,12 @@
-import Vector from './core/Vector';
-import Rectangle from './core/Rectangle';
+import Vector from '../core/Vector';
+import DynamicRectangle from '../core/DynamicRectangle';
 
-class Bullet extends Rectangle{
+class Bullet extends DynamicRectangle{
     constructor(positionX, positionY){
         super(positionX, positionY, 5, 5, 'green', 'bullet');
-        this.velocity = new Vector(0, 0);
         this.owner = null;
         this.initTime = null;
         this.speed = 3;
-    }
-    setVelocity(x,y){
-        this.velocity.x = x;
-        this.velocity.y = y;
     }
     setOwner(gameObject){
         this.owner = gameObject;

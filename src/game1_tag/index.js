@@ -1,10 +1,10 @@
 
-import Game from './core/Game';
-import InputHandler from './core/InputHandler';
-import Rectangle from './core/Rectangle';
+import Game from '../core/Game';
+import InputHandler from '../core/InputHandler';
+import Rectangle from '../core/Rectangle';
 import Player from './Player';
 import PickupManager from './PickupManager';
-import Vector from './core/Vector';
+import Vector from '../core/Vector';
 
 let renderConfig = {
     0:['background'],
@@ -89,7 +89,7 @@ let player1 = new Player(20,20, {
     'right': 'KeyD',
     'ability': 'Space'
 });
-let player2 = new Player(380,380,{
+let player2 = new Player(370,370,{
     'up': 'ArrowUp',
     'down': 'ArrowDown',
     'left': 'ArrowLeft',
@@ -97,12 +97,13 @@ let player2 = new Player(380,380,{
     'ability':'Numpad0'
 });
 let pickupManager = new PickupManager();
-inputhandler.bind(player1);
-inputhandler.bind(player2);
+inputhandler.subscribeBy(player1, "keyboard");
+inputhandler.subscribeBy(player2, "keyboard");
 game.add(pickupManager);
 game.addAll(setup);
 game.add(player1);
 game.add(player2);
+
 function start(){
     function frame(timestamp){
         game.update(timestamp);

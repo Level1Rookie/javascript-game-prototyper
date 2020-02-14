@@ -1,12 +1,11 @@
-import Rectangle from './core/Rectangle';
+import DynamicRectangle from '../core/DynamicRectangle';
 import Bullet from './Bullet';
-import Vector from './core/Vector';
+import Vector from '../core/Vector';
 
-class Player extends Rectangle{
-    constructor(positionX, positionY, playerConfig){
+class Player extends DynamicRectangle{
+    constructor(positionX, positionY, control){
         super(positionX, positionY, 10, 10,'green', 'player');
-        this.velocity = new Vector(0,0);
-        this.playerConfig = playerConfig;
+        this.control = control;
         this.abilityType = null;
         this.taggerStartTime = null;
         this.taggerDuration = 4000;
@@ -26,21 +25,37 @@ class Player extends Rectangle{
     setAbilityType(abilityType){
         this.abilityType = abilityType;
     }
-    subscribe(addEventListener){
-        let up = this.playerConfig['up'];
-        let down = this.playerConfig['down'];
-        let right = this.playerConfig['right'];
-        let left = this.playerConfig['left'];
-        let ability = this.playerConfig['ability'];
-        addEventListener('keydown', up, () => this.moveUp());
-        addEventListener('keydown', down, () => this.moveDown());
-        addEventListener('keydown', left, () => this.moveLeft());
-        addEventListener('keydown', right, () => this.moveRight());
-        addEventListener('keyup', up, () => this.setVelocityY(0));
-        addEventListener('keyup', down, () => this.setVelocityY(0));
-        addEventListener('keyup', left, () => this.setVelocityX(0));
-        addEventListener('keyup', right, () => this.setVelocityX(0));
-        addEventListener('keydown', ability, () => this.doAbility());
+    notify(event){
+        let up = this.control['up'];
+        let down = this.control['down'];
+        let right = this.control['right'];
+        let left = this.control['left'];
+        let ability = this.control['ability'];
+        if(event.type == 'keydown'){
+            if(event.code == up){
+                this.moveUp();
+            }else if(event.code == down){
+                this.moveDown();
+            }else if(event.code == left){
+                this.moveLeft();
+            }else if(event.code == right){
+                this.moveRight();
+            }else if(event.code == ability){
+                this.doAbility();
+            }
+        }
+        else if(event.type == 'keyup'){
+            if(event.code == up){
+                this.setVelocityY(0);
+            }else if(event.code == down){
+                this.setVelocityY(0);
+            }else if(event.code == left){
+                this.setVelocityX(0);
+            }else if(event.code == right){
+                this.setVelocityX(0);
+            }
+        }
+        console.log(event);
     }
     moveUp(){
         this.velocity.y = -this.speed;
@@ -53,16 +68,6 @@ class Player extends Rectangle{
     }
     moveRight(){
         this.velocity.x = this.speed;
-    }
-    setVelocity(x,y){
-        this.velocity.x = x;
-        this.velocity.y = y;
-    }
-    setVelocityX(x){
-        this.velocity.x = x;
-    }
-    setVelocityY(y){
-        this.velocity.y = y;
     }
     doAbility(){
         if(this.abilityType == 'black-hole'){
@@ -85,11 +90,7 @@ class Player extends Rectangle{
         }
     }
     update(timestamp){
-        this.lastPosition.x = this.position.x;
-        this.lastPosition.y = this.position.y;
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
-
+        super.update();
         if(this.tag == 'tagger'){
             if(this.taggerStartTime==null){
                 this.taggerStartTime = timestamp;

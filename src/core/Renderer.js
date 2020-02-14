@@ -25,7 +25,6 @@ class Renderer{
             this.context.fillStyle = gameObject.color;
             this.context.fillRect(gameObject.position.x, gameObject.position.y, gameObject.size.x, gameObject.size.y);
         }
-        //console.log(this.gameObjectList);
     }
 }
 

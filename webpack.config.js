@@ -1,7 +1,11 @@
 const path = require('path');
+//const argv = require('argv');
 
+const project = 'game1_tag';
+//const project = 'game2_shooter';
+const projectEntry = `./src/${project}/index.js`;
 module.exports = {
-  entry: './src/index.js',
+  entry: projectEntry,
   mode: "development",
   output: {
     filename: 'main.js',

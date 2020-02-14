@@ -1,4 +1,5 @@
-import Rectangle from './core/Rectangle';
+import GameObject from '../core/GameObject';
+import Rectangle from '../core/Rectangle';
 
 // ------Tagger pickups-------
 //BlackHole pickup
@@ -32,15 +33,16 @@ class BlackHolePickup extends Rectangle{
     }
 }
 
-class PickupManager extends Rectangle{
+class PickupManager extends GameObject{
     constructor(){
-        super(0, 0, 0, 0, 'black', 'pickupManager');
+        super('pickupManager');
         this.existDuration = 3000;
         this.spawnTimeDuration = 5000;
         this.lastSpawnTime = null;
         this.pickupList = [];
     }
     update(timestamp){
+        super.update();
         if(this.lastSpawnTime == null){
             this.lastSpawnTime = timestamp;
         }
@@ -57,7 +59,6 @@ class PickupManager extends Rectangle{
         let choice = Math.floor(Math.random() * 3);
         let x = Math.floor(Math.random()*300);
         let y = Math.floor(Math.random()*300);
-        console.log(choice);
         let pickup = null;
         if(choice == 0){
             pickup = new BlackHolePickup(x,y, spawnTime);
